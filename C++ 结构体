@@ -1,0 +1,28 @@
+//23.05.27
+
+`<span style="color:green">/**********创建结构体数组并赋值**********/</span>`
+
+sturct student
+{
+  string name;
+  int age;
+  int score;
+};
+
+int main()
+{
+
+struct student stuArray[length]
+{
+  {"name1",age1,score1},
+  {"name2",age2,score2},
+  {"name3",age3,score3}
+};
+
+stuArray[index].name = name4;//在创建完并初始化数组后仍然可以通过语句改变数组内容
+
+}
+
+
+
+`<span style="color:green">/**********结构体指针**********/</span>`
