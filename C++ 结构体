@@ -1,5 +1,7 @@
 //23.05.27
 
+
+
 /**********创建结构体数组并赋值**********/
 
 sturct student
@@ -20,9 +22,121 @@ struct student stuArray[length]
 };
 
 stuArray[index].name = name4;//在创建完并初始化数组后仍然可以通过语句改变数组内容
-
+system("pause");
+return 0;
 }
 
 
 
+
+
+
 /**********结构体指针**********/
+//如上创建student结构体并在main函数中进行结构体指针的创建和初始化
+struct student stu = {"name5",age5,score5};
+struct student * p = &stu;      //在这里，两行的struct都可以省略
+p->name = "name6";              //因为是通过使用指针来间接访问元素属性，所以使用"->"，它和"."的区别就在于此，"."则是直接访问
+cout << p->name << p->age << p->score << endl;
+
+
+
+
+
+
+/*********结构体嵌套**********/
+sturct student
+{
+  string name;
+  int age;
+  int score;
+};
+
+sturct teacher
+{
+  string name;
+  int age;
+  int id;
+  struct student stu;//在这里，名为教师的结构体中，创建了类型为student的结构体，这就是结构体的嵌套
+};
+
+
+
+
+
+
+/**********结构体作为函数参数的（1）实参和（2）形参**********/
+struct student
+{
+  string name = "joker";
+  int age = 20;
+  int score = 100;
+};
+
+void printStudent1(struct student s)
+{
+  s.age = 30;
+  cout << "子函数1中打印" << "姓名："<< s.name <<"年龄："<< s.age <<"分数："<< s.score << endl;
+}
+
+void printStudent2(struct student * p)
+{
+  p->age = 40;
+  cout << "子函数2中打印" << "姓名："<< s.name <<"年龄："<< s.age <<"分数："<< s.score << endl;
+}
+
+int main()
+{
+  struct student s;
+  printStudent1(s);
+  cout << "主函数中打印1" << "姓名："<< s.name <<"年龄："<< s.age <<"分数："<< s.score << endl;
+  //作为实参传入函数时，在子函数中对成员属性的修改不会使主函数中原本的属性改变
+  printStudent2(&s);
+  cout << "主函数中打印2" << "姓名："<< s.name <<"年龄："<< s.age <<"分数："<< s.score << endl;
+  //作为形参传入子函数时，因为在子函数中利用地址进行修改，是对主函数中的结构体属性进行间接修改，所以在第二次主函数打印时，显示的是修改之后的值
+}
+
+
+
+
+
+
+
+/**********结构体中const的使用场景**********/
+
+struct student
+{
+  string name;
+  int age;
+  int score;
+};
+
+void printStudent(const student * p)
+//为了节约空间和时间开销，经常使用形参来传递参数，但是使用形参就会带来改变实际值的隐患，这个场景下就可以使用const来避免隐患
+{
+  //p->age=150;              //在const修饰情况下，对const修饰对象的任何修改都会报错
+  cout<< "子函数打印：" << p->age << endl;
+}
+
+int main()
+{
+  student s = {"joker",20,100};
+  printStudent(&s);
+  cout<<"主函数中打印"<<s.age<<endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
