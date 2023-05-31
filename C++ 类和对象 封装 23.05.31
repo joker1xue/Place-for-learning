@@ -1,0 +1,112 @@
+//23.05.31
+
+//类和对象 封装
+
+//属性和行为作为整体
+//语法： class 类名{ 访问权限：   属性；   行为}；
+//示例：
+
+const double pi = 3.14;
+
+class Circle
+{//访问权限为public
+public:
+  //属性：半径
+  int r;
+  //行为：求周长
+  int calculateZC()
+  {
+    return 2 * pi * r;
+  }
+};
+
+int main()
+{
+  //创建对象，这里创建了一个Circle类的对象
+  Circle c1;
+  //访问对象的属性和行为：
+  c1.r = 10;
+  int zc = c1.calculateZC;
+  cout << "圆的周长为" << zc << endl;
+  system("pause");
+  return 0;
+}
+
+//封装的意义：在设计类的时候，属性和行为写在一起，表现事物。
+
+
+
+
+
+
+//访问权限
+//公共权限：public        成员   类内可以访问   类外可以访问
+//保护权限：protected     成员   类内可以访问   类外不可以访问   继承关系中儿子可以访问
+//私有权限：private       成员   类内可以访问   类外不可以访问   继承关系中儿子不可以访问
+
+class Person
+{
+  public:
+  string p_Name;
+  
+  protected:
+  string p_Car;
+  
+  private:
+  int p_Password;
+  
+  public:
+  void func()
+  {
+    string p_Name = "张三";
+    string p_Car = "五菱宏光";
+    int p_Password = 123456;
+  }
+};
+
+int main()
+{
+  Person p1;
+  p1.p_Name = "李四";//合法
+  p1.p_Car = "劳斯莱斯";//不合法，类外不能访问保护权限成员
+  p1.p_Password = 111;//不合法，类外不能访问私有权限成员
+  p1.func();//合法，可以通过在封装内部设计专门特定的函数来修改或调用保护权限或私有权限的成员
+}
+
+
+
+
+
+
+
+//C++中class和struct的区别
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
