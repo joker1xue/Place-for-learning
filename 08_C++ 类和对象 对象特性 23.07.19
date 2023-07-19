@@ -1,0 +1,113 @@
+23.07.19
+
+C++对象模型和指针
+
+/**********成员变量和成员函数分开存储**********/
+class Person                   //如果为空类，sizeof返回值为1
+{
+  int age;                    //sizeof(Person)为四个字节
+  static int age2;            //四个字节
+  void func() {};             //四个字节
+  static void func2() {};     //四个字节，说明这些与成员age都不存储在一个位置
+};
+int Person::age2 = 0;
+
+
+
+/*********this指针**********/
+1.当形参与成员参数同名时，用于区分
+2.返回对象本体
+class Person
+{
+public:
+  Person(int& age)
+  {
+    this->age = age;
+  }
+  Person& PersonAddPerson(Person p)
+  {
+    this->age+=p.age;
+    return *this;
+  }
+  int age;
+};
+
+
+
+/**********空指针访问成员函数**********/
+class Person
+{
+public:
+  void showClassName()
+  {
+    cout<<"Class name is Person"<<endl;
+  }
+  void showPersonAge()
+  {
+    //if(this==NULL)
+    //retrun;
+    //这样的代码可以防止传入空指针
+    cout<<"age is"<<this->age<<endl;
+  }
+  int age;
+};
+
+int main()
+{
+  Person* p = NULL;
+  p->showClassName();//正常运行
+  p->showPersonAge();//报错，p为空指针，没有实际的对象，也就没有成员参数age
+  
+  system('pause');
+}
+
+
+
+/**********const修饰成员函数**********/
+常函数：（成员函数后加const）
+1.常函数不能修改成员变量
+2.成员属性前加mutable关键字可以被常函数修改
+
+常对象：（对象声明前使用const）
+1.只能调用常函数，否则可能通过普通函数修改成员变量
+
+class Person
+{
+public:
+  void showPersonAge() const
+  {
+    age = 100;//报错
+    cout<<"age is "<<this->age<<endl;
+  }
+  void showPersonName() const
+  {
+    name = "张三";//可以运行，因为name是mutable修饰的成员变量
+    cout<<"Person name is "<<name<<endl;
+  }
+  void func(){}
+  int age;
+  mutable string name;
+};
+
+int main()
+{
+  const Person p;
+  p.age = 10;//error
+  p.name = "李四";//right
+  p.func();//error
+  system('pause');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
