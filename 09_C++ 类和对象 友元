@@ -1,0 +1,62 @@
+23.07.19
+
+友元
+友元，是一个类内使用friend关键字进行声明的，在类外能访问该类的private成员变量的(函数、)
+
+
+
+/**********全局函数做友元**********/
+class Building
+{
+
+  friend void LaoPo(Building &building);
+
+public:
+
+  Building()
+  {
+    m_livingRoom = "客厅";
+    m_bedRoom = "卧室";
+  }
+
+  string m_livingRoom;
+
+private:
+
+  string m_bedRoom;
+};
+
+void LaoPo(Building &building)
+{
+  cout<<"LaoPo is visiting "<<building.m_bedRoom<<endl;//不会报错，已用friend关键字进行声明
+}
+
+
+
+/**********类做友元**********/
+
+在类内声明后：
+friend class className;
+就可以通过这个友元类中的函数访问类内的private成员变量了。
+
+/**********成员函数做友元**********/
+
+一样的声明方式：
+friend void className::funcName();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
