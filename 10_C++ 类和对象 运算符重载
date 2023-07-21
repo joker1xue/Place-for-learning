@@ -90,6 +90,122 @@ void test01()
 
 /**********自增运算符重载**********/
 
+1.前置递增
+2.后置递增
+
+class Myinteger
+{
+friend ostream& operator<<(ostream& out,Myinteger& myint)
+ public:
+  Myinteger()
+  {
+    m_Num = 0;
+  }
+
+Myinteger& operator++()
+{
+  m_Num++;
+  return *this;
+}
+
+Myinteger operator++(int)
+{
+  Myinteger temp = *this;
+  m_Num++;
+  return temp;
+}
+int m_Num;
+};
+
+test01()
+{
+  Myinteger myint;
+  cout << myint << endl;
+  cout << myint++ << endl;
+  cout << myint << endl;
+  cout << ++myint << endl;
+}
+
+/**********赋值运算符重载**********/
+C++编译器会为类提供四种函数
+1.构造  2.析构 3.拷贝  4.赋值运算符operator=
+class Person
+{
+  Person(int age)
+  {
+    m_Age = new int(age);
+  }
+
+  Person& operator=(Person& p)
+  {
+    if(m_Age != NULL)
+    {
+      delete m_Age;
+      m_Age = NULL;
+    }
+    //m_Age = p.m_Age;浅拷贝会导致重复释放堆区的数据，应该另外开辟一个堆区存放数据
+    m_Age = new int(*p.m_Age);
+    return *this;
+  }
+
+  int * m_Age;
+};
+
+test01()
+{
+  Person p1(10);
+  Person p2(20);
+  Person p3(30);
+  p3 = p2 = p1;
+  //cout 结果是p1/p2/p3均为10
+}
+
+
+
+/**********关系运算符重载**********/
+
+1.==
+2.!=
+class Person
+{
+  Person(string& name,int& age)
+  {
+    m_Name = name;
+    m_Age = age;
+  }
+
+  bool operator==(Person& p)
+  {
+    if(m_Name == p.m_Name && m_Age == p.m_Age)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  bool operator!=(Person& p)
+  {
+    if(m_Name != p.m_Name || m_Age != p.m_Age)
+    {
+      return ture;
+    }
+    reuturn false;
+  }
+
+  string m_Name;
+  int m_Age;
+};
+
+
+
+/**********函数调用运算符重载**********/
+
+
+
+
+
+
+
 
 
 
