@@ -200,7 +200,17 @@ class Person
 
 /**********函数调用运算符重载**********/
 
+括号()重载的用法与函数非常相似，所以也称仿函数。
+匿名对象调用：Myclass()(int variables)
 
+class Myclass
+{
+public:
+  Myclass operator()(int a,int b)
+  {
+    cout << "a + b = " << a + b << endl;
+  }
+};
 
 
 
