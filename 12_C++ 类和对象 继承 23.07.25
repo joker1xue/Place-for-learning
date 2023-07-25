@@ -1,0 +1,32 @@
+23.07.25
+
+继承
+
+/**********多继承语法**********/
+class 子类 ： 继承方式 父类1，继承方式 父类2...
+
+/**********菱形继承以及带来的问题**********/
+class Grandpa
+{
+  public:
+  int m_A;
+};
+
+class Father {};
+
+class Uncle {};
+
+class Son : public Father,public Uncle {};
+
+void test01()
+{
+  Son s;
+  
+}
+
+
+
+
+
+
+
