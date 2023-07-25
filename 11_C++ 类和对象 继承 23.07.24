@@ -1,0 +1,166 @@
+23.07.24
+
+类和对象 继承
+
+/**********基本语法**********/
+class son : 继承方式 father
+子类也称派生类，父类也称基类。
+继承的优势：减少代码复用
+
+
+
+
+/**********继承方式**********/
+1.公共继承
+public:子类以父类中相同的权限继承
+class father
+{
+  public:
+  int a;
+  protect:
+  int b;
+  private:
+  int c;
+};
+class son : public father
+{
+  void func()
+  {
+    a = 100;//未报错
+    b = 100;//未报错
+    c = 100;//报错
+  }
+};
+int main()
+{
+  son s1;
+  s1.b = 100;//报错，说明是保护权限
+}
+
+2.保护继承
+将父类中的除了private的权限全部转化为protect的权限继承，继承私有权限但是隐藏起来无法访问
+3.私有继承
+将父类中的除了private的权限全部转化为private的权限继承，继承私有权限但是隐藏起来无法访问
+
+
+
+/**********继承中的对象模型**********/
+父类的私有成员（所有非静态成员属性都）是会被子类继承的，但是被隐藏起来而且无法访问
+vs命令提示符可以查看继承中的对象模型
+cl /d1 reportSingleClassLayout类名 文件名
+
+
+
+/**********继承中的构造和析构的顺序**********/
+会先进行父类的构造，再进行子类的构造
+会先进行子类的析构，再进行父类的析构
+class Base
+{
+  public:
+  Base()
+  {
+    cout << "这是Base的构造函数" << endl;
+  }
+  ~Base()
+  {
+    cout << "这是Base的析构函数" << endl;
+  }
+};
+
+class Son:public Base
+{
+  public:
+  Son()
+  {
+    cout << "这是Son的构造函数" << endl;
+  }
+  ~Son()
+  {
+    cout << "这是Son的析构函数" << endl;
+  }
+};
+
+void test01()
+{ 
+  Son s;  
+}
+
+int main()
+{
+  test01();
+  system('pause');
+}
+
+
+
+/**********继承中的同名成员变量和函数处理**********/
+
+子类中可以直接访问到子类中的同名成员变量
+子类对象加作用域可以访问到父类同名成员变量
+当子类与父类拥有同名成员函数时，子类会隐藏父类中同名成员函数，加作用域也可以访问
+
+class Base
+{
+  public:
+  int m_A;
+
+  Base()
+  {
+    m_A = 100;
+  }
+
+  void func()
+  {
+    cout << "Base" << endl;
+  }
+};
+
+class Son : public Base
+{
+  public:
+  int m_A;
+  Son()
+  {
+    m_A = 200;
+  }
+
+  void func()
+  {
+    cout << "Son" << endl;
+  }
+};
+
+void test01()
+{
+  Son s;
+  cout << "s.m_A = " << s.m_A << endl;
+  cout << "s.Base::m_A = " << s.Base::m_A << endl;
+  s.func;
+  s.Base::func;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
