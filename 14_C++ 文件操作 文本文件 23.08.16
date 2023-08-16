@@ -1,0 +1,115 @@
+23.08.16
+
+文件操作
+
+/**********文件打开方式*******/
+ios::in      为读文件打开文件
+ios::out     为写文件打开文件
+ios::ate     初始位置在文件尾
+ios::app     追加方式写文件
+ios::trunc   如果文件存在则先删除再创建
+ios::binary  二进制方式写文件
+
+
+/***********写文件**********/
+1.包含头文件fstream
+  #include<fstream>
+2.创建文件流对象
+  fstream ofs;
+3.打开文件
+  ofs.open("path",打开方式);
+4.写数据
+  ofs << "内容";
+5.关闭文件
+  ofs.close();
+
+
+
+/***********读文件*************/
+1.包含头文件fstream
+2.创建文件流对象
+  ifstream ifs;
+3.打开文件并判断是否打开成功
+  ifs.open("path",打开方式);
+  if(!ifs.is_open())
+  {
+    cout << "open failed!" << endl;
+  }
+4.读数据(四种方法)
+  1.
+    char buf[1024] = {0};
+    while( ifs >> buf )
+    {
+      cout << buf << endl;
+    }
+  2.
+    char buf[1024] = {0};
+    while( ifs.getline(buf,sizeof(buf)))
+    {
+      
+    }
+  3.
+    string buf;
+    while(getline(ifs,buf))
+    {
+      
+    }
+  4.
+    char c;
+    while((c = ifs.get()) != EOF)
+    {
+    
+    }
+  5.关闭文件
+    ifs.close();
+
+
+
+/************二进制写文件************/
+不仅可以操作内置的数据类型，还可以操作自定义的数据类型
+class Person
+{
+  public:
+  char m_Name[60];
+  int m_Age;
+};
+
+test01()
+{
+  ofstream ofs;
+  ofs.open("person.txt",ios::out | ios::binary);
+  Person p = {"张三",18};
+  ofs.write((const char *)&p,sizeof(Person));
+  ofs.close();
+}
+
+
+
+/*************二进制读文件************/
+test02()
+{
+  ifstream ifs;
+  ifs.open("person.txt",ios::in | ios::bianry)
+  if(!ifs.is_open())
+  {
+    cout << "failed!" << endl;
+    return;
+  }
+  Person p;
+  ifs.read((char *)&p,sizeof(Person));
+  cout << p.m_Name << p.m_Age << endl;
+  ifs.close();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+  
