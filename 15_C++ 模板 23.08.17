@@ -1,0 +1,130 @@
+23.08.17
+
+模板
+
+C++的另外一种编程思想是泛型编程，主要利用的技术就是模板
+C++提供两种模板机制：函数模板和类模板
+
+/*************模板的概念************/
+1.模板并不能直接使用，只是一个框架
+2.框架的通用性很强，但并不是万能的
+
+
+
+/***********函数模板的基本语法***********/
+template<typename T>      //告诉编译器T是一个通用数据类型，后面不要报错
+mySwap(T &a, T &b)
+{
+  T temp = a;
+  a = b;
+  b = temp;
+}
+
+使用函数模板方式：
+
+1.自动推导类型
+int a = 10;
+int b = 20;
+mySwap(a,b);
+
+2.显示指定类型
+mySwap<int>(a,b);
+
+模板的目的是为了提高复用性，将类型参数化
+
+
+
+/************函数模板注意事项***********/
+1.自动类型推导，必须推导出一致的数据类型才可以使用
+2.模板必须确定T的数据类型。
+
+
+
+/*********普通函数和函数模板的区别*********/
+1.普通函数调用可以发生隐式类型转换
+2.函数模板使用自动类型推导，不能发生隐式类型转换
+3.函数模板使用显示指定类型，可以发生隐式类型转换
+
+void myAdd(int a,int b)
+{
+  return a + b;
+}
+
+template<typename T>
+void myAdd02(T a,T b)
+{
+  return a+b;
+}
+
+test01()
+{
+  int a = 10;
+  int b = 20;
+  char c = 'c';
+
+  cout << myAdd(a,b) << endl;//结果 30
+  cout << myAdd(a,c) << endl;//结果 109
+  cout << myAdd02(a,b) << endl;//结果 30
+  cout << myAdd02(a,c) << endl;//报错
+  cout << myAdd02<int>(a,c) << endl;//结果 109
+}
+
+
+
+/***********普通函数和函数模板的调用规则**********/
+1.如果函数模板和普通函数都可以实现，优先调用普通函数
+2.可以通过空模板参数列表来强制用函数模板来实现:myAdd<>(a,b)
+3.函数模板也可以重载
+3.如果函数模板可以更好地匹配，则优先调用函数模板
+
+void myAdd(int a,int b)
+{
+  cout << "调用普通函数" << endl;
+}
+
+template<typename T>
+void myAdd(T a,T b)
+{
+  cout << "调用函数模板" << endl;
+}
+
+temlate<typename T>
+void myAdd(T a,T b,int c)
+{
+  cout << "调用重载的函数模板" << endl;
+}
+
+test01()
+{
+  int a = 10;
+  int b = 20;
+  char c = 'c';
+  char d = 'd';
+  myAdd(a,b);//调用普通函数
+  myAdd<>(a,b);//调用函数模板
+  myAdd(c,d);//调用函数模板
+  myAdd(a,b,100);//调用重载的函数模板
+}
+
+
+
+/********模板具有局限性********/
+自定义类型例如类，模板无法直接利用
+template<typename T>
+bool myCompare(T a, T b)
+{
+  
+}
+//当参数为一个类时，模板无法理解，需要写出具体的实现
+template<> bool myCompare(Person &p1,Person &p2)
+{
+
+}
+
+
+
+
+
+
+
+
