@@ -26,7 +26,7 @@ class Person
   AgeType m_age;
 };
 
-test01()
+void test01()
 {
   Person<string,int> p1("Jack",21);
 }
@@ -50,7 +50,7 @@ class Person
   AgeType age;
 };
 
-test01()
+void test01()
 {
   //Person p1("Jack",21);报错，类模板无法自动推导，必须加上模板参数列表
   Person<string,int> p2("Rose",20);//正确
@@ -59,14 +59,116 @@ test01()
 
 /************类模板中成员函数创建时机*************/
 类模板中成员函数一开始并不会直接创建，而是在调用时才会创建
+class Person1
+{
+  public:
+  void showPerson1()
+  {
+    cout << "Person1 running" << endl;
+  }
+};
+
+class Person2
+{
+  public:
+  void showPerson2()
+  {
+    cout << "Person2 running" << endl;
+  }
+};
+
+template<typename T>
+class MyClass
+{
+  T obj;
+  void Show1()
+  {
+    obj.showPerson1();
+  }
+  void Show2()
+  {
+    obj.showPerson2();
+  }
+};
+
+void test01()//在写test01前的程序不会报错，因为没有调用类模板成员函数，所以并没有生成。
+{
+  MyClass<Person1> m;
+  MyClass<Person2> n;
+  m.Show1();//不报错
+  //m.Show2();报错
+  n.Show2();//不报错
+  //n.Show1();报错
+}
 
 
 
+/***类模板对象做函数参数***********************************************************************/
+1.指定传入类型
+
+void showPerson1(Person<string,int> &p)
+
+2.参数模板化
+
+template<typename T1,typename T2>
+void showPerson2(Person<T1,T2> &p)
+
+3.整个类模板化
+
+template<typename T>
+void showPerson3(T &p)
 
 
 
+/***类模板与继承****************************************************************************/
+如果父类是类模板，子类需要指定父类中T的数据类型
+
+template<class T>
+class Father
+{
+  T m;
+};
+
+//class Son:public Father//报错，需要指定父类中成员变量的类型
+class Son1:public Father<int>
+{};
+
+//如果想要灵活地定义子类，那么子类也要成为一个类模板
+template<class T1,class T2>
+class Son2:public Father<T2>
+{
+  T1 n;
+};
 
 
+
+/***类模板成员函数类外实现********************************************************************/
+
+template<class T1,class T2>
+class Person
+{
+public:
+
+  Person(T1 name,T2 age);
+
+  void showPerson();
+
+  T1 m_name;
+  T2 m_age;
+};
+
+template<class T1,class T2>
+Person<T1,T2>::Person(T1 name,T2 age)
+{
+  this->m_name = name;
+  this->m_age = age;
+}
+
+template<class T1,class T2>
+void Person<T1,T2>::showPerson()
+{
+  cout << "name is " << this->m_name << " age is " << this->m_age <<endl;
+}
 
 
 
