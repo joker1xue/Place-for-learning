@@ -10,15 +10,55 @@
 template<typename T>
 class...
 
+实例：
+template<typename NameType,typename AgeType>
+class Person
+{
+  public:
+  Public(NameType name,AgeType age)
+  {
+    this->m_name = name;
+    this->m_age = age;
+    cout << "name is " << this->m_name << " age is " << this->m_age << endl;
+  }
+
+  NameType m_name;
+  AgeType m_age;
+};
+
+test01()
+{
+  Person<string,int> p1("Jack",21);
+}
 
 
 
+/************类模板与函数模板区别**********/
+1.类模板没有自动类型推导
+2.类模板在模板参数列表中可以有默认参数
 
+template<typename NameType,typename AgeType = int>//AgeType的默认类型为int
+class Person
+{
+  public:
+  Person(NameType name,AgeType age)
+  {
+    this->m_name = name;
+    this->m_age = age;
+  }
+  NameType name;
+  AgeType age;
+};
 
+test01()
+{
+  //Person p1("Jack",21);报错，类模板无法自动推导，必须加上模板参数列表
+  Person<string,int> p2("Rose",20);//正确
+  Person<string> p3("Ttnk",19);//正确
+}
 
-
-
-
+/************类模板中成员函数创建时机*************/
+类模板中成员函数一开始并不会直接创建，而是在调用时才会创建
 
 
 
