@@ -183,12 +183,39 @@ void Person<T1,T2>::showPerson()
 
 
 
+/***类模板与友元***********************************************************************/
 
+全局函数类内实现：直接在类内声明友元
+全局函数类外实现：提前告知编译器全局函数的存在
 
+1.类内实现：
+template<class T1,class T2>
+class Person
+{
+  friend void printPerson(Person<T1,T2> &p)
+  {
+    
+  }
+};
 
+2.类外实现：
+  (1):提前声明类模板
+  (2):提前定义函数模板
+  (3):最后完成友元声明
 
+  template<class T1,class T2> class Person;
 
+  template<class T1,class T2>
+  void printPerson(Person<T1,T2> &p)
+  {
+    
+  }
 
+  template<class T1,class T2>
+  class Person
+  {
+    friend void printPerson(Person<T1,T2> &p);
+  };
 
 
 
