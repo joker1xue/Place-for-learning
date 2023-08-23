@@ -45,7 +45,9 @@ class MyArray
   int m_Size;    //大小
 
   public:
-  //构造函数
+
+
+  /***构造函数***/
   MyArray(int capacity)
   {
     cout << "有参构造函数" << endl;
@@ -54,15 +56,18 @@ class MyArray
     this->pAddress = new T[this->Capacity];
   }
 
-  //拷贝构造函数
+
+  /***拷贝构造函数***/
   MyArray(const MyArray& arr)
   {
     cout << "拷贝构造函数" << endl;
     this->m_Capacity = arr.m_Capacity;
     this->m_Size = arr.m_Size;
-  
+
+
     //深拷贝
     this->pAddress = new T[arr.m_Capacity];
+
 
     //将arr中的数据都拷贝过来
     for(int i = 0;i < m_Size;i++)
@@ -71,7 +76,8 @@ class MyArray
     }
   }
 
-  //重载=，operator=
+
+  /***重载=，operator=***/
   MyArray& operator=(const MyArray& arr)
   {
     //先判断原来在堆区是否有数据，如有则先释放
@@ -92,6 +98,53 @@ class MyArray
     }
     return *this;
   }
+
+
+/***利用下表对数组进行访问***/
+T& operator[](int index)
+{
+  return this.pAddress[index];
+}
+
+
+/***尾插***/
+void PushBack(const T& value)
+{
+  if(this->m_Capacity == this->m_Size)
+  {
+    cout << "数组大小超出数组容量" << endl;
+    return;
+  }
+  this.pAddress[this->m_Size] = value;
+  this->m_Size++;
+}
+
+
+//尾删
+void PopBack()
+{
+  if(this->m_Size == 0)
+  {
+    cout << " 数组已为空！" << endl;
+    return;
+  }
+  this->m_Size--;
+}
+
+
+//获取数组容量
+void getCapacity()
+{
+  return this->m_Capacity;
+}
+
+
+//获取数组大小
+void getSize()
+{
+  return this->m_Size;
+}
+
 
   //析构函数
   ~MyArray()
