@@ -1,1 +1,86 @@
+23.08.25
+
+string容器
+
+/***string基本概念***********************************************************************/
+
+本质：string是C++风格的字符串，本质上是一个类
+
+string和char*的区别：
+char*是一个指针，而string是一个类，类内封装了char*用于管理字符串，是一个char*型的容器
+
+特点：
+string封装了很多成员方法，例如find、copy、delete。
+string管理char*所分配的内存，不用担心复制越界和取值越界，由类内进行管理和负责
+
+
+/***string构造函数********************************************************************************/
+
+//无参构造，创建一个空字符串
+string();
+//有参构造，使用字符串s进行初始化
+string(const char* s);
+//拷贝构造
+string(const string& str);
+//使用n个字符c进行初始化
+string(n,'c');
+
+
+
+/***string的赋值操作******************************************************************************************/
+
+string& operator=(const char* str);//char*类型字符串，赋值给当前字符串
+string& operator=(const string& s);//把字符串s赋值给当前字符串
+string& operator=(char c);//将字符c赋值给当前字符串
+string& assign(const char *s);//将字符串s直接赋值给当前字符串
+string& assign(const char *s,n);//将字符串s的前n个字符赋值给字符串
+string& assign(const string& s);//将字符串s直接赋值给当前字符串
+string& assign(n,'c');//将n个字符c赋值给当前字符串
+
+
+/***string字符串拼接*******************************************************************************************/
+
+string& operator+=(const char* s);
+string& operator+=(const string& s);
+string& operator+=(const char c);
+string& append(const char *s);
+string& append(const string &s);
+string& append(const char *s,int n);//把字符串s的前n个字符拼接到当前字符串后
+string& append(const char *s,int pos,int n);//从字符串s的第pos个字符开始把n个字符拼接到当前字符串后
+
+
+/***string查找和替换********************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
