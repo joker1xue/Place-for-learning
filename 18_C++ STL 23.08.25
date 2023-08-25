@@ -1,0 +1,140 @@
+23.08.25
+
+STL:standard template library 标准模板库
+为了提供代码的复用性而建立的一套数据结构和算法标准
+
+/***基本概念*******************************************************************************/
+STL从广义上分为容器、算法、迭代器
+
+六个组件：容器、算法、迭代器、仿函数、适配器、空间配置器
+
+1.容器：各种数据结构，用于存储数据
+2.算法：常见的一些算法
+3.迭代器：容器与算法直接的胶合剂
+4.仿函数：
+5.适配器：修饰容器、仿函数、迭代器接口
+6.空间配置器：负责空间管理
+
+
+容器：将一些运用最广泛的数据结构实现出来，例如数组、链表、树、栈、队列、集合、哈希表
+这些容器被分为序列式容器和关联式容器两种
+序列式容器：强调值的排序，序列式容器的每个元素有固定的位置
+关联式容器：二叉树结构，元素之间没有严格的物理上的顺序关系
+
+
+算法：问题的解法
+有限的步骤，解决逻辑或数学上的问题
+算法也分为两种：质变算法和非质变算法
+质变算法：运算过程中改变区间内元素的内容的算法，即为质变算法，例如拷贝替换删除
+非质变算法：与质变算法相反，例如查找、计数、遍历、求极值等
+
+
+迭代器：提供一种方法，能够按序寻访容器中的各个元素而不暴露容器内部表示方式
+每个容器都有自己专属的迭代器，类似于指针
+1.输入迭代器
+2.输出迭代器
+3.前向迭代器
+4.双向迭代器
+5.随机访问迭代器
+
+
+
+
+/***vector存放内置数据类型********************************************************************/
+#include<vector>
+#include<algorithm>
+
+void printVector(int value)
+{
+  cout << value << endl;
+}
+
+void test01()
+{
+  //创建vector对象，并通过模板参数列表指定存储的数据类型
+  vector<int> v;
+  //向容器中存储数据
+  v.push_back(10);
+  v.push_back(20);
+  //遍历算法
+  //1.创建迭代器对象，再自己写循环
+  vector<int>::iterator pbegin = v.begin();
+  vector<int>::iterator pend = v.end();
+  for(pbegin ; pbegin!=pend ; pbegin++ )
+  {
+    cout << *pbegin << endl;
+  }
+
+  //2.使用STL标准算法
+  for_each(v.begin(),v.end(),printVector);
+}
+
+
+
+/***vector存放自定义数据类型*********************************************************************/
+#include<iostream>
+using namespace std;
+#include<vector>
+#include<string>
+
+class Person
+{
+  public:
+  Person(string name,int age)
+  {
+    this->m_name = name;
+    this->m_age = age;
+  }
+
+  string m_name;
+  int m_name;
+};
+
+test01()
+{
+  Person p1("a",10);
+  Person p2("b",20);
+  Person p3("c",30);
+  
+  vector<Person> v;
+  v.push_back(p1);
+  v.push_back(p2);
+  v.push_back(p3);
+
+  for(vector<Person>::iterator it = v.begin();it!=v.end;it++)
+  {
+    cout << " name is " << it->m_name << " age is " << it->m_age << endl;
+  }
+}
+
+
+
+/***容器嵌套容器************************************************************************/
+
+v.push_back(v1);
+v.push_back(v2);
+v.push_back(v3);
+
+for(vector<vector<int>>::iterator it = v.begin();it!=v.end();it++)
+{
+  for(vector<int>::iterator vit = (*it).begin();vit!=(*it).end();vit++)
+  {
+    cout << *vit << " ";
+  }
+  cout << endl;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
