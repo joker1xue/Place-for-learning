@@ -51,7 +51,14 @@ string& append(const char *s,int pos,int n);//从字符串s的第pos个字符开
 
 /***string查找和替换********************************************************************************************/
 
+int find(const string& str,int pos = 0) const;
+int find(const char* s,int pos = 0) const;
+int find(const char* s,int pos = 0,int n) const;//从s的第pos个字符位置开始的前n个字符中查找
+int find(const char c,int n);//在当前字符串中的前n个字符中查找字符c
 
+int rfind(const string& str,int pos = 0) const;//rfind与find的区别在于rfind从右开始找第一个，find是从左开始找第一个。
+
+string& replace(int pos ,int n,const string* str);//替换从第pos个字符开始的n个字符为str
 
 
 
