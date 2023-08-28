@@ -106,15 +106,33 @@ cout << str << endl;//xxllo
 函数原型：
 string& insert(int pos,const char* c);
 string& insert(int pos,const string& str);
-string& insert(int pos,int n, char* c);
+string& insert(int pos,int n, char c);
 string& erase(int pos,int n = nops);
 
+void test()
+{
+  string str = "hello";
+
+  str.insert(1,"nmd");
+  cout << "str = " << str << endl;//"hnmdello"
+
+  str.erase(1,3);
+  cout << "str = " << str << endl;//"hello"
+}
 
 
 
+/***子串获取******************************************************************************************/
+string& substr(int pos = 0,int n = npos) const;//返回由pos开始的n个字符组成的字符串
 
+void test()
+{
+  string email = "mihu@hust.com";
 
-
+  int pos = email.find("@");
+  string userName = email.substr(0,pos);
+  cout << "userName is " << userName << endl;
+}
 
 
 
