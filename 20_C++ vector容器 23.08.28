@@ -130,19 +130,93 @@ clear();   //删除容器中所有的元素
 
 
 
+/***数据存取************************************************************************************/
+函数原型：
+at(int idx);//返回idx下标处的元素
+operator[];//重载[]，返回下标处的元素
+front();//返回容器中的第一个
+back();//返回容器中的最后一个元素
 
 
 
+/***互换容器***************************************************************************************/
+实现两个容器中元素互换
+函数原型：
+swap(const vector<T>& v);
+
+void test01()
+{
+  vector<int> v1;
+  for(int i = 0;i<10;i++)
+  {
+    v1.push_back(i);
+  }
+
+  vector<int> v2;
+  for(int i = 1;i<4;i++)
+  {
+    v2.push_back(i);
+  }
+  
+  cout << "-----互换前-----" << endl;
+  printVector(v1);//0 1 2 3 4 5 6 7 8 9
+  printVector(v2);//1 2 3
+
+  v1.swap(v2);
+
+  cout << "-----互换后-----" << endl;
+  printVector(v1);//1 2 3
+  printVector(v2);//0 1 2 3 4 5 6 7 8 9
+
+}
+
+
+//swap的特殊功能：收缩内存
+void test02()
+{
+  vector<int> v;
+  for(int i =0 ; i < 1000000000; i++)
+  {
+    v.push_back(i);
+  }
+  //printVector(v);vector的数量巨大，遍历需要大量时间
+  cout << "v.capacity is: " << v.capacity() << endl;//比1000000000更大
+  cout << "v.size is: " << v.size() << endl;//1000000000
+
+  v.resize(10);//重新指定大小
+  cout << "v.capacity is: " << v.capacity() << endl;//比1000000000更大
+  cout << "v.size is: " << v.size() << endl;//10
+  //占用大量空闲空间！
+  
+  //收缩内存！
+  vector<int>(v).swap(v);//使用匿名构造，拷贝出来一个匿名对象，并将其中的内容与v交换
+  cout << "v.capacity is: " << v.capacity() << endl;//10
+  cout << "v.size is: " << v.size() << endl;//10  
+}
 
 
 
+/***预留空间**************************************************************************/
+功能：减少动态拓展空间时的拓展次数
+函数原型：
+reserve(int len);//预留len个元素，未初始化，元素不可访问
 
-
-
-
-
-
-
+void test01()
+{
+  vector<int> v1;
+  /***v1.reserve(10000000);//如果提前告知和预留了足够的空间，那么不需要额外的拓展***/
+  int num = 0;
+  int * p = NULL;
+  for(int i = 0;i<10000000;i++)
+  {
+    v1.push_back(i);//逐渐插入数据，需要多次拓展容器内存
+    if( p != &v1[0] )
+    {
+      p = &v1[0];
+      num++;//对拓展次数计数，大概在数十次
+    }
+  }
+}
 
 
 
