@@ -4,26 +4,137 @@ list容器
 
 /***基本概念**************************************/
 
+功能：将数据进行链式存储。
+链表(list)在物理结构上非连续，数据元素的逻辑顺序是通过指针来实现的。
+链表的组成：结点
+结点的组成：数据元素和指针
+STL中的list是双向循环列表
+             ____________________________
+           _↓__          ____          __|_
+front()   |_e1_|        |_e2_|        |_e3_|   back()
+          |0x02|------->|0x03|------->|0x01|
+begin()   |0x03|<-------|0x01|<-------|0x02|   end()
+            |___________________________↑
+
+
+list的优点：动态存储，不会浪费空间资源，插入删除不需要移动大量元素，
+缺点：指针占用额外存储空间，耗费空间资源较大，遍历耗费时间。
+
+插入删除操作都不会导致原有list迭代器失效
 
 
 
+/***list构造函数*****************************/
+list<T> lst;
+list(begin,end);
+list(n,elem);
+list(const list& lst);
 
 
 
+/***赋值和交换*******************************/
+
+assign(begin,end);
+assign(n,elem);
+list& operator=(const list& lst);
+swap(lst);
 
 
 
+/***大小操作********************************/
+
+size();
+empty();
+resize(num);
+resize(num,elem);
 
 
 
+/***插入删除********************************/
+
+push_back(elem);
+push_front(elme);
+pop_back();
+pop_front();
+insert(pos,elme);
+insert(pos,n,elem);
+insert(pos,begin,end);
+clear();
+erase(pos);
+erase(begin,end);
+remove(elem);//删除链表中所有元素为elem的结点。
 
 
 
+/***数据存取*********************************/
+
+list不支持利用[]和at()去访问元素，只能通过迭代器一步步去访问
+
+front();
+back();
+
+list<int>::iterator it = L.begin();
+it++;
+//it = it + 2;报错，list不支持随机访问，只能逐一访问
 
 
 
+/***翻转和排序*****************************/
+
+reverse();
+sort();//所有不支持随机访问的容器不能使用标准算法，容器内部会提供部分算法
+
+list<int> lst;
+lst.push_back(20);
+lst.push_back(10);
+lst.push_back(30);
+
+lst.sort();//排序
 
 
 
+/***特殊排序**********************************/
 
+//按照人年龄从小到大排序，如果年龄相同按身高从高到矮排序
+
+bool comparePerson(Person& p1,Person& p2)
+{
+  if(p1.m_age == p2.m_age)
+  {
+    return p1.m_height > p2.m_height;
+  }
+  else
+  {
+    return p1.m_age < p2.m_age;
+  }
+}
+
+class Person
+{
+  public:
+  Person(string name,int age,int height)
+  {
+    this->m_name = name;
+    this->m_age = age;
+    this->m_height = height;
+  }
+
+  string m_name;
+  int m_name;
+  int m_height;
+};
+
+test()
+{
+  list<Person> L1;
+  Person p1("亚索",40,170);
+  Person p2("永恩",30,180);
+  Person p3("瑞文",40,190);
+
+  L1.push_back(p1);
+  L1.push_back(p2);
+  L1.push_back(p3);
+
+  L1.sort()
+}
 
