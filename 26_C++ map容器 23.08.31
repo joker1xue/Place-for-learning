@@ -1,0 +1,56 @@
+//23.08.31
+
+//map容器
+
+/***map构造和赋值****************************/
+
+//简介:map容器中所有元素全是对组，也就是pair
+//pair中的第一个元素为键值，起索引作用，第二个数为value也就是实值。
+//所有的元素会按键值的大小自动排序
+
+//本质:map/multimap也是关联式容器，底层结构是二叉树
+
+//优点：可以根据键值快速索引到value。
+
+//构造：
+map<type,type> mp;
+map(const map& mp);
+
+//赋值：
+map& operator=(const map& mp);
+
+
+
+void printMap(const map<int,int>& mp)
+{
+  for(map<int,int>::const_iterator it = mp.begin();it!mp.end();it++)
+  {
+    cout << "key is : " << (*it).first << " value is : " << it->second << endl;
+  }
+}
+
+test()
+{
+  pair<int,int> p = 
+}
+
+
+
+
+/***map大小和交换****************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***map插入和删除****************************/
+/***map查找和统计****************************/
+/***map排序**********************************/
