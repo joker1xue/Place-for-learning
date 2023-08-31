@@ -14,30 +14,157 @@ multiset容器中允许有重复的元素
 
 
 
-
 /***set的构造和赋值*******************************************/
 
+构造：
+set<T> st;
+set(const set& st);
 
-
-
-
-
-
-
-
-
-
+赋值：
+set& operator=(const set& st);
 
 
 
 /***set的大小和交换*******************************************/
 
+size();
+empty();
+swap(st);
+
+
+
 /***set的插入和删除*******************************************/
+
+insert(elem);
+clear();
+erase(pos);
+erase(begin,end);
+erase(elem);//删除所有为elem的元素。
+
+
 
 /***set的查找和统计******************************************/
 
+find(elem);//如果存在，返回该元素的迭代器，否则返回set.end();
+count(elem);//统计elem的个数，对于set而言，要么为0要么为1。
+
+
+
 /***set和multiset的区别**************************************/
 
-/***pari的使用***********************************************/
+test()
+{
+  set<int> S1;
+
+  pair<set<int>::iterator,bool> ret = S1.insert(10);
+  if(ret.second)
+  {
+    cout << "第一次插入成功" << endl;
+  }
+  else
+  {
+    cout << "第一次插入失败" << endl;
+  }
+
+  ret = S1.insert(10);
+  if(ret.second)
+  {
+    cout << "第二次插入成功" << endl;
+  }
+  else
+  {
+    cout << "第二次插入失败" << endl;
+  }
+}
+
+
+/***pari的使用************************************************/
+
+pair<type,type> p (val1,val2);
+pair<type,type> p = make_pair(val1,val2);
+
+pair<string,int> p1 ("jack",10);
+cout << "name is : " << p1.first << " age is : " << p1.second << endl;
+
 
 /***内置类型指定排序规则**************************************/
+
+//利用仿函数，可以改变排序规则
+class Mycompare
+{
+  public:
+  bool operator()(int val1,int val2)
+  {
+    return val1>val2;
+  }
+};
+
+test()
+{
+  set<int> s1;
+  s1.insert(10);
+  s1.insert(40);
+  s1.insert(30);
+  s1.insert(20);
+  s1.insert(50);
+
+  printSet(s1);//10 20 30 40 50
+
+  set<int,Mycompare> s2;
+
+  s2.insert(10);
+  s2.insert(40);
+  s2.insert(30);
+  s2.insert(20);
+  s2.insert(50);
+
+  printSet(s2);//50 40 30 20 10
+  
+}
+
+
+/***自定义类型指定排序规则************************************/
+
+//自定义数据类型都要指定排序规则
+class Person
+{
+  public:
+  Person(string name,int age)
+  {
+    this->m_Name = name;
+    this->m_Age = age;
+  }
+
+  string m_Name;
+  int m_Age;
+};
+
+class MyCompare
+{
+  public:
+  bool operator()(const Person& p1,const Person& p2)
+  {
+    return p1.m_Age > p2.m_Age;
+  }
+};
+
+test()
+{
+  Person p1("yasuo",24);
+  Person p2("yongen",30);
+  Person p3("ruiwen",28);  
+  
+  set<Person,MyCompare> s1;//自定义数据类型一定要指定排序规则
+
+  s1.insert(s1);
+  s1.insert(s2);
+  s1.insert(s3);
+
+  for(set<Person,MyCompare>::iterator it = s1.begin();it!=s1.end();it++)
+  {
+    cout << "name is : " << (*it).m_Name << " age is : " << it->m_Age << endl;
+  }
+}
+
+
+
